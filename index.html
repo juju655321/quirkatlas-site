@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Quirk Atlas: West Virginia (beta) | by Jupiter Rockets</title>
-<meta name="description" content="Quirk Atlas: West Virginia (beta), by Jupiter Rockets. An interactive map of the state's quirky and hidden history: cryptids and legends, unusual places, historic sites and Civil War battlefields, state parks, forests, wildlife management areas and scenic byways, coal mine disasters 1886 to 2010, coal and ghost towns, abandoned mine sites, oil and gas fields, mineral sites, plus optional license plate reader camera locations from OpenStreetMap.">
+<meta name="description" content="Quirk Atlas: West Virginia (beta), by Jupiter Rockets. An interactive map of the state's quirky and hidden history: cryptids and legends, unusual places, historic sites and Civil War battlefields, state parks, forests, wildlife management areas and scenic byways, coal mine disasters 1886 to 2010, coal and ghost towns, abandoned mine sites, oil and gas fields, mineral sites, plus Near Me and road-trip discovery, and optional license plate reader camera locations from OpenStreetMap.">
 <meta property="og:title" content="Quirk Atlas: West Virginia (beta)">
-<meta property="og:description" content="Quirk Atlas: West Virginia (beta), by Jupiter Rockets. An interactive map of the state's quirky and hidden history: cryptids and legends, unusual places, historic sites and Civil War battlefields, state parks, forests, wildlife management areas and scenic byways, coal mine disasters 1886 to 2010, coal and ghost towns, abandoned mine sites, oil and gas fields, mineral sites, plus optional license plate reader camera locations from OpenStreetMap.">
+<meta property="og:description" content="Quirk Atlas: West Virginia (beta), by Jupiter Rockets. An interactive map of the state's quirky and hidden history: cryptids and legends, unusual places, historic sites and Civil War battlefields, state parks, forests, wildlife management areas and scenic byways, coal mine disasters 1886 to 2010, coal and ghost towns, abandoned mine sites, oil and gas fields, mineral sites, plus Near Me and road-trip discovery, and optional license plate reader camera locations from OpenStreetMap.">
 <meta property="og:site_name" content="Quirk Atlas">
 <meta property="og:url" content="https://quirkatlas.com/">
 <link rel="canonical" href="https://quirkatlas.com/">
@@ -107,6 +107,60 @@ html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Robo
 .legend div{display:flex;align-items:center;gap:6px}
 .maplibregl-ctrl-attrib{font-size:11px}
 .maplibregl-ctrl-top-right{top:34px}
+
+#discoverBtns{position:absolute;right:12px;bottom:44px;z-index:6;display:flex;flex-direction:column;gap:8px}
+#discoverBtns button{background:#fff;border:1px solid #ccd;border-radius:22px;padding:9px 14px;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.18);cursor:pointer;text-align:left}
+#discoverBtns button:hover,#discoverBtns button:focus{background:#eef3fb;outline:none}
+#sheet{position:absolute;left:0;right:0;bottom:0;z-index:8;max-height:56vh;background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.25);display:none;flex-direction:column;padding:6px 14px 16px;font-size:14px}
+#sheet.open{display:flex}
+#sheet .grab{width:36px;height:4px;background:#ccd;border-radius:2px;margin:4px auto 6px;flex:none}
+#sheet .sheet-h{display:flex;align-items:center;gap:8px;flex:none}
+#sheet .sheet-tabs{display:flex;gap:6px;flex:1}
+#sheet .sheet-tabs button{border:1px solid #ccd;background:#f3f5f8;border-radius:16px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer}
+#sheet .sheet-tabs button.on{background:#1d232a;color:#fff;border-color:#1d232a}
+#sheetX{border:0;background:none;font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
+#sheet .pane{overflow-y:auto;min-height:0;flex:1;-webkit-overflow-scrolling:touch}
+#sheet .locbar{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+#sheet .locbar button,#sheet .go{border:1px solid #ccd;background:#f3f5f8;border-radius:8px;padding:7px 11px;font-size:13px;cursor:pointer;font-weight:600}
+#sheet .go{background:#1d232a;color:#fff;border-color:#1d232a}
+#sheet .locbar input,#tripStart,#tripEnd,#nearQ{flex:1;min-width:140px;padding:8px 10px;border:1px solid #ccd;border-radius:8px;font-size:16px}
+#sheet .seg{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:6px 0;font-size:13px;color:#5a6470}
+#sheet .seg button{border:1px solid #ccd;background:#fff;border-radius:14px;padding:4px 10px;font-size:13px;cursor:pointer}
+#sheet .seg button.on{background:#1d232a;color:#fff;border-color:#1d232a}
+#sheet .chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
+#sheet .chips button{border:1px solid #ccd;background:#fff;border-radius:14px;padding:3px 9px 3px 6px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+#sheet .chips button.on{background:#eef3fb;border-color:#9bb6e0;font-weight:600}
+#sheet .chips i{width:8px;height:8px;border-radius:50%;display:inline-block}
+#sheet .status{font-size:13px;color:#5a6470;line-height:1.4;margin:4px 0 8px}
+#sheet .status.warn{color:#7a5200;background:#fff4d6;border-radius:6px;padding:7px 8px}
+#dlist,#tlist,#nsugg,#tsugg,#esugg{list-style:none;margin:0;padding:0}
+#dlist li,#tlist li,#nsugg li,#tsugg li,#esugg li{display:flex;align-items:flex-start;gap:8px;padding:8px 4px;border-top:1px solid #eef0f3;cursor:pointer;line-height:1.3}
+#dlist li:hover,#tlist li:hover,#nsugg li:hover,#tsugg li:hover,#esugg li:hover{background:#eef3fb}
+#dlist .dot,#tlist .dot{width:10px;height:10px;border-radius:50%;flex:none;margin-top:4px}
+#dlist b,#tlist b{display:block;font-size:14px}
+#dlist small,#tlist small,#nsugg small,#tsugg small,#esugg small{display:block;color:#5a6470;font-size:12px}
+#tlist .wp{margin-left:auto;flex:none;font-size:11px;color:#5a6470;display:flex;align-items:center;gap:4px}
+#sheet .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#sheet .hint{font-size:12px;color:#5a6470;line-height:1.4;margin:8px 0 0}
+#sheet .hint a{color:#0b57d0}
+#sheet .ends{display:grid;gap:6px;margin:8px 0}
+#sheet .endrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#sheet .endrow input{flex:1 1 140px}
+#sheet .acts{position:sticky;bottom:0;background:#fff;padding-top:8px;padding-bottom:4px}
+#sheet .endrow label{font-size:12px;color:#5a6470;width:36px;flex:none}
+body.sheet-open #legend{display:none}
+body.sheet-open #discoverBtns{display:none}
+#sheet.min{max-height:64px}
+#sheet.min .pane{display:none}
+
+@media (min-width:901px){
+ #sheet{left:332px;right:12px;bottom:12px;max-height:46vh;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+ #sheet.noleft{left:12px}
+}
+@media (max-width:600px){
+ #discoverBtns{bottom:48px}
+ #sheet{max-height:58vh}
+}
 @media (max-width:600px){
  #card{left:8px;right:8px;top:auto;bottom:28px;width:auto;max-height:55%}
  .beta{font-size:12px}
@@ -121,14 +175,18 @@ html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Robo
 <div class="beta"><b>Quirk Atlas: West Virginia</b> · beta, work in progress. <span class="long">Locations are approximate; see each record's precision.</span> <a href="https://www.jupiterrockets.com/">Jupiter Rockets home</a></div>
 <div id="map"></div>
 <button id="menuBtn" aria-controls="panel">☰ Layers</button>
+<div id="discoverBtns">
+<button type="button" id="nearBtn" aria-controls="sheet">📍 Near Me</button>
+<button type="button" id="tripBtn" aria-controls="sheet">🚗 Road trip</button>
+</div>
 <aside id="panel" aria-label="Map layers">
  <button id="closeBtn" aria-label="Close menu">×</button>
  <h1>Quirk Atlas<span class="st">: West Virginia</span></h1>
  <p class="by">by <a href="https://www.jupiterrockets.com/" target="_top">Jupiter Rockets</a></p>
- <p class="lede">Pick what to show. More layers are coming.</p>
+ <p class="lede">Pick what to show, or use Near Me and Road trip to find what is around you or along a drive.</p>
  <div class="search">
   <form id="searchForm" role="search" autocomplete="off">
-   <input id="q" type="search" placeholder="Search disasters, towns, cryptids, historic sites, parks" aria-label="Search">
+   <input id="q" type="search" placeholder="Search disasters, towns, cryptids, historic sites, parks, or a trip town" aria-label="Search">
    <button type="submit" title="Also search places in West Virginia">Places</button>
   </form>
   <ul id="results" role="listbox"></ul>
@@ -231,11 +289,61 @@ html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Robo
    <p class="note">West Virginia scenic byways and backways, including the state’s National Scenic Byways and the Historic National Road (an All-American Road).</p>
   </div>
  </div>
- <div class="cat"><p class="note" style="margin-left:0">Sources: <a href="https://minesafety.wv.gov/historical-statistical-data/wv-mine-disasters-1884-to-present/" target="_blank" rel="noopener">WV Office of Miners' Health, Safety &amp; Training</a>, <a href="https://wwwn.cdc.gov/NIOSH-Mining/MMWC/MineDisasters/Table" target="_blank" rel="noopener">NIOSH Mining Disasters</a>, <a href="https://www.msha.gov/data-and-reports/mine-data-retrieval-system" target="_blank" rel="noopener">MSHA Mines data</a>, <a href="https://www.wvgs.wvnet.edu/www/coal/cbmp/coalims.html" target="_blank" rel="noopener">WVGES Coal Bed Mapping</a>, <a href="https://tagis.dep.wv.gov/arcgis/rest/services/WVDEP_enterprise/abandoned_mine_lands/MapServer/1" target="_blank" rel="noopener">WVDEP Abandoned Mine Lands</a>, <a href="https://en.wikipedia.org/wiki/List_of_ghost_towns_in_West_Virginia" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA), <a href="https://www.nps.gov/neri/" target="_blank" rel="noopener">NPS New River Gorge</a>, <a href="https://atlas2.wvgs.wvnet.edu/server/rest/services/OilGas_WVOG/WVOG_Fields/MapServer/0" target="_blank" rel="noopener">WVGES oil &amp; gas fields</a>, <a href="https://mrdata.usgs.gov/mrds/" target="_blank" rel="noopener">USGS MRDS</a>, <a href="https://www.wvencyclopedia.org/" target="_blank" rel="noopener">e-WV</a>, <a href="https://wvtourism.com/west-virginia-cryptids-road-trip/" target="_blank" rel="noopener">WV Tourism</a>, <a href="https://braxtonwv.org/" target="_blank" rel="noopener">Visit Braxton</a>, WV News, WV Living (cryptid sources on each card), <a href="https://geocoding.geo.census.gov/" target="_blank" rel="noopener">US Census geocoder</a>, <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> (ODbL), <a href="https://deflock.org" target="_blank" rel="noopener">DeFlock</a>, <a href="https://services9.arcgis.com/SQbkdxLkuQJuLGtx/ArcGIS/rest/services/WV_Public_Lands/FeatureServer" target="_blank" rel="noopener">WVDNR / WVGISTC public lands</a>, <a href="https://gis.transportation.wv.gov/arcgis/rest/services/Roads_And_Highways/Publication_LRS/MapServer/53" target="_blank" rel="noopener">WVDOT scenic byways</a>, <a href="https://fhwaapps.fhwa.dot.gov/bywaysp/States/Show/WV" target="_blank" rel="noopener">FHWA America’s Byways</a>, <a href="https://www.wikidata.org/" target="_blank" rel="noopener">Wikidata</a> (CC0), <a href="https://en.wikipedia.org/" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA), Wikimedia Commons photos (license on each card). Map tiles: <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Not for engineering, legal or safety use.</p></div>
+ <div class="cat"><p class="note" style="margin-left:0">Sources: <a href="https://minesafety.wv.gov/historical-statistical-data/wv-mine-disasters-1884-to-present/" target="_blank" rel="noopener">WV Office of Miners' Health, Safety &amp; Training</a>, <a href="https://wwwn.cdc.gov/NIOSH-Mining/MMWC/MineDisasters/Table" target="_blank" rel="noopener">NIOSH Mining Disasters</a>, <a href="https://www.msha.gov/data-and-reports/mine-data-retrieval-system" target="_blank" rel="noopener">MSHA Mines data</a>, <a href="https://www.wvgs.wvnet.edu/www/coal/cbmp/coalims.html" target="_blank" rel="noopener">WVGES Coal Bed Mapping</a>, <a href="https://tagis.dep.wv.gov/arcgis/rest/services/WVDEP_enterprise/abandoned_mine_lands/MapServer/1" target="_blank" rel="noopener">WVDEP Abandoned Mine Lands</a>, <a href="https://en.wikipedia.org/wiki/List_of_ghost_towns_in_West_Virginia" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA), <a href="https://www.nps.gov/neri/" target="_blank" rel="noopener">NPS New River Gorge</a>, <a href="https://atlas2.wvgs.wvnet.edu/server/rest/services/OilGas_WVOG/WVOG_Fields/MapServer/0" target="_blank" rel="noopener">WVGES oil &amp; gas fields</a>, <a href="https://mrdata.usgs.gov/mrds/" target="_blank" rel="noopener">USGS MRDS</a>, <a href="https://www.wvencyclopedia.org/" target="_blank" rel="noopener">e-WV</a>, <a href="https://wvtourism.com/west-virginia-cryptids-road-trip/" target="_blank" rel="noopener">WV Tourism</a>, <a href="https://braxtonwv.org/" target="_blank" rel="noopener">Visit Braxton</a>, WV News, WV Living (cryptid sources on each card), <a href="https://geocoding.geo.census.gov/" target="_blank" rel="noopener">US Census geocoder</a>, <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> (ODbL), <a href="https://deflock.org" target="_blank" rel="noopener">DeFlock</a>, <a href="https://services9.arcgis.com/SQbkdxLkuQJuLGtx/ArcGIS/rest/services/WV_Public_Lands/FeatureServer" target="_blank" rel="noopener">WVDNR / WVGISTC public lands</a>, <a href="https://gis.transportation.wv.gov/arcgis/rest/services/Roads_And_Highways/Publication_LRS/MapServer/53" target="_blank" rel="noopener">WVDOT scenic byways</a>, <a href="https://fhwaapps.fhwa.dot.gov/bywaysp/States/Show/WV" target="_blank" rel="noopener">FHWA America’s Byways</a>, <a href="https://www.wikidata.org/" target="_blank" rel="noopener">Wikidata</a> (CC0), <a href="https://en.wikipedia.org/" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA), Wikimedia Commons photos (license on each card). Driving routes: <a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a> / <a href="https://routing.openstreetmap.de/about.html" target="_blank" rel="noopener">FOSSGIS</a> from OpenStreetMap; <a href="https://www.openstreetmap.org/fixthemap" target="_blank" rel="noopener">fix the map</a>. Map tiles: <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Not for engineering, legal or safety use.</p></div>
 <p class="note" style="margin-left:0"><a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></p>
 </aside>
 <div id="card" role="dialog" aria-live="polite"><button class="x" aria-label="Close">×</button><div id="cardBody"></div></div>
 <div class="legend" id="legend"></div>
+<div id="sheet" role="dialog" aria-label="Near Me and road trip" aria-modal="false">
+ <div class="grab" aria-hidden="true"></div>
+ <div class="sheet-h">
+  <div class="sheet-tabs">
+   <button type="button" id="tabNear">Near Me</button>
+   <button type="button" id="tabTrip">Road trip</button>
+  </div>
+  <button type="button" id="sheetX" aria-label="Close">×</button>
+ </div>
+ <div class="pane" id="nearPane">
+  <div class="locbar">
+   <button type="button" id="useLoc">Use my location</button>
+   <button type="button" id="pickHere">Tap the map</button>
+   <input id="nearQ" type="search" placeholder="Or search for a town" aria-label="Search for a place to look around" autocomplete="off">
+  </div>
+  <ul id="nsugg" hidden></ul>
+  <p class="status" id="nearStatus">Location is used only when you ask for it. It stays in this browser and is not stored or sent to us.</p>
+  <div class="seg" id="nearRad">Within
+   <button type="button" data-mi="10">10 mi</button>
+   <button type="button" data-mi="25" class="on">25 mi</button>
+   <button type="button" data-mi="50">50 mi</button>
+  </div>
+  <div class="chips" id="nearChips"></div>
+  <ul id="dlist"></ul>
+ </div>
+ <div class="pane" id="tripPane" hidden>
+  <div class="ends">
+   <div class="endrow"><label for="tripStart">Start</label><input id="tripStart" type="search" placeholder="Town, or tap the map" aria-label="Trip start" autocomplete="off">
+    <button type="button" id="startMe">My location</button><button type="button" id="startPick">Tap</button></div>
+   <ul id="tsugg" hidden></ul>
+   <div class="endrow"><label for="tripEnd">End</label><input id="tripEnd" type="search" placeholder="Town, or tap the map" aria-label="Trip end" autocomplete="off">
+    <button type="button" id="endMe">My location</button><button type="button" id="endPick">Tap</button></div>
+   <ul id="esugg" hidden></ul>
+  </div>
+  <div class="seg" id="tripCor">Corridor
+   <button type="button" data-mi="2">2 mi</button>
+   <button type="button" data-mi="5" class="on">5 mi</button>
+   <button type="button" data-mi="10">10 mi</button>
+  </div>
+  <button type="button" class="go" id="tripGo">Find quirks along the way</button>
+  <p class="status" id="tripStatus"></p>
+  <div class="acts">
+   <button type="button" id="tripShare">Share this trip</button>
+   <button type="button" id="tripGmaps">Open in Google Maps</button>
+  </div>
+  <p class="hint">Driving routes come from <a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a> on the <a href="https://routing.openstreetmap.de/about.html" target="_blank" rel="noopener">FOSSGIS public demo</a> (OpenStreetMap data, max one request per second, no key). Credit <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL) and <a href="https://www.openstreetmap.org/fixthemap" target="_blank" rel="noopener">fix the map</a> if a road looks wrong. If routing is unavailable, a straight-line corridor is used instead. Start and end coordinates are sent only to that routing server, and only when you ask for a route.</p>
+  <div class="chips" id="tripChips"></div>
+  <ul id="tlist"></ul>
+ </div>
+</div>
 <div class="toast" id="toast" role="status"></div>
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script>
@@ -249,7 +357,7 @@ const wide=window.innerWidth>900;
 const PAD=wide?{top:50,bottom:30,left:340,right:30}:{top:50,bottom:20,left:10,right:10};
 const FIT_PAD=wide?{top:80,bottom:80,left:380,right:80}:60;
 const map=window.__map=new maplibregl.Map({container:'map',style:'https://tiles.openfreemap.org/styles/liberty',bounds:WV_BOUNDS,fitBoundsOptions:{padding:PAD},attributionControl:false});
-map.addControl(new maplibregl.AttributionControl({compact:false,customAttribution:'<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> (ODbL) · Mine data: WV OMHST, NIOSH, MSHA, WVGES · Legends &amp; oddities: sources on each card · ALPR data: OSM / DeFlock · Place search: Nominatim'}));
+map.addControl(new maplibregl.AttributionControl({compact:false,customAttribution:'<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> (ODbL) · Mine data: WV OMHST, NIOSH, MSHA, WVGES · Legends &amp; oddities: sources on each card · ALPR data: OSM / DeFlock · Place search: Nominatim · Routing: <a href="https://project-osrm.org/" target="_blank">OSRM</a> / <a href="https://routing.openstreetmap.de/about.html" target="_blank">FOSSGIS</a> · <a href="https://www.openstreetmap.org/fixthemap" target="_blank">Fix the map</a>'}));
 map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');
 map.addControl(new maplibregl.GeolocateControl({}),'top-right');
 const $=id=>document.getElementById(id);
@@ -258,7 +366,7 @@ $('menuBtn').onclick=()=>panel.classList.toggle('open');
 $('closeBtn').onclick=()=>panel.classList.remove('open');
 if(wide) panel.classList.add('open');
 const closePanelOnPhone=()=>{if(!wide) panel.classList.remove('open');};
-card.querySelector('.x').onclick=()=>{card.style.display='none';select(null);if(location.hash) history.replaceState(null,'',location.pathname+location.search);};
+card.querySelector('.x').onclick=()=>{card.style.display='none';select(null);$('sheet')&&$('sheet').classList.remove('min');if(typeof DISC!=='undefined'&&DISC.holdHash) return;if(location.hash) history.replaceState(null,'',location.pathname+location.search);};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const toast=msg=>{const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200);};
 const FEATS=D.disasters.features;
@@ -375,11 +483,12 @@ map.on('load',()=>{
  initParks();
  legend();
  initPep();
+ initDiscover();
  fromHash();
  window.addEventListener('hashchange',fromHash);
  window.__ready=true;
 });
-function fromHash(){const m=location.hash.match(/^#d=(.+)$/);if(m&&BY_ID[decodeURIComponent(m[1])]) openDisaster(decodeURIComponent(m[1]),true,true);
+function fromHash(){if(/^#r=/.test(location.hash)){if(typeof openTripFromHash==='function') openTripFromHash();return;}const m=location.hash.match(/^#d=(.+)$/);if(m&&BY_ID[decodeURIComponent(m[1])]) openDisaster(decodeURIComponent(m[1]),true,true);
  const tm=location.hash.match(/^#t=(.+)$/);if(tm) whenTowns(()=>openTown(decodeURIComponent(tm[1]),true));
  const gm=location.hash.match(/^#g=(\d+)$/);if(gm) GEO.og.load(()=>openOg(+gm[1],true));
  const mm=location.hash.match(/^#m=(\d+)$/);if(mm) GEO.mrds.load(()=>openMrds(mm[1],true));
@@ -535,7 +644,7 @@ function initGeo(){
  GEO.setMrds=v=>map.setLayoutProperty('mrds-pt','visibility',vis(v));
  $('tglOg').onchange=e=>{GEO.setOg(e.target.checked);legend();if(e.target.checked) GEO.og.load();};
  $('tglMrds').onchange=e=>{GEO.setMrds(e.target.checked);legend();if(e.target.checked) GEO.mrds.load();};
- map.on('click',e=>{if(!$('tglOg').checked||!GEO.og.loaded) return;
+ map.on('click',e=>{if(typeof DISC!=='undefined'&&DISC.picking) return;if(!$('tglOg').checked||!GEO.og.loaded) return;
   const top=map.queryRenderedFeatures(e.point,{layers:['q-pt','hl-pt','h-pt','h-cl','dis-pt','town-pt','town-cl','aml-pt','aml-cl','mrds-pt','flock-pt','flock-cl']});if(top.length) return;
   const hits=map.queryRenderedFeatures(e.point,{layers:['og-fill']});if(!hits.length) return;
   const ids=[...new Set(hits.map(h=>h.properties.gid))];openOg(ids[0],false,ids.length);});
@@ -923,6 +1032,474 @@ function legend(){
  if($('tglPep')&&$('tglPep').checked) h+=`<div><span style="font-size:12px">🍕</span>Pepperoni roll stop</div>`;
  L.innerHTML=h;L.style.display=h?'block':'none';
 }
+
+// ---- Near Me and road-trip discovery (Priority 5) ----
+// Routing: FOSSGIS OSRM public demo (https://routing.openstreetmap.de/about.html).
+// Terms (checked Nov 15, 2026): reasonable non-commercial / non-heavy use, 1 request
+// per second, OSM + OSRM attribution, a "fix the map" link, a reachable contact
+// email, and a valid referrer (browsers cannot set User-Agent on fetch). Access
+// may be withdrawn; there is no uptime guarantee. Coordinates go to that server
+// only when the user asks for a route. If the request fails, we fall back to a
+// straight-line corridor. The service URL is kept in one constant so it is easy
+// to point at a self-hosted instance later.
+const DISC={
+ rad:25, cor:5, tab:'near', origin:null, start:null, end:null, picking:null,
+ route:null, straight:false, holdHash:false, lastRouteAt:0, cache:new Map(),
+ chips:{quirk:1,park:1,byway:1,hist:1,dis:1,town:1,pep:1,mrds:0,og:0,aml:0,flock:0},
+ nearHits:[], tripHits:[]
+};
+const OSRM_URL='https://routing.openstreetmap.de/routed-car';
+const OSRM_FB='https://router.project-osrm.org';
+const MI=3958.7613;
+const LAYS=[
+ {id:'quirk',label:'Cryptids & oddities',color:'#76d01c'},
+ {id:'park',label:'Parks & forests',color:'#1b7f4c'},
+ {id:'byway',label:'Scenic routes',color:'#e65100'},
+ {id:'hist',label:'Historic sites',color:'#3949ab'},
+ {id:'dis',label:'Disasters',color:'#c62828'},
+ {id:'town',label:'Coal & ghost towns',color:'#6d4c41'},
+ {id:'pep',label:'Pepperoni rolls',color:'#d9a25f',needPep:true},
+ {id:'mrds',label:'Mineral sites',color:'#c2185b'},
+ {id:'og',label:'Oil & gas fields',color:'#f9a825'},
+ {id:'aml',label:'Abandoned mines',color:'#37474f'},
+ {id:'flock',label:'Flock cameras',color:'#1565c0',needFlock:true}
+];
+function hav(a,b,c,d){const r=x=>x*Math.PI/180,dlt=r(d-b),dlg=r(c-a);const s=Math.sin(dlt/2)**2+Math.cos(r(b))*Math.cos(r(d))*Math.sin(dlg/2)**2;return 2*MI*Math.asin(Math.min(1,Math.sqrt(s)));}
+function fmtMi(x){return x<0.1?'<0.1 mi':(x<10?x.toFixed(1):Math.round(x))+' mi';}
+function fmtMin(s){s=Math.round(s);if(s<90) return s+' min';const h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h?(m?h+' hr '+m+' min':h+' hr'):m+' min';}
+function inBBox(lng,lat){const [[a,b],[c,d]]=WV_BOUNDS;return lng>=a&&lng<=c&&lat>=b&&lat<=d;}
+function inWV(lng,lat){
+ const g=D.outline&&(D.outline.type==='FeatureCollection'?D.outline.features[0].geometry:D.outline.geometry||D.outline);
+ if(!g) return inBBox(lng,lat);
+ const rings=g.type==='Polygon'?[g.coordinates]:g.type==='MultiPolygon'?g.coordinates:[];
+ const hit=ring=>{let n=0;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const xi=ring[i][0],yi=ring[i][1],xj=ring[j][0],yj=ring[j][1];if(((yi>lat)!=(yj>lat))&&(lng<(xj-xi)*(lat-yi)/((yj-yi)||1e-12)+xi)) n++;}return n%2===1;};
+ for(const poly of rings){if(hit(poly[0])){let ok=true;for(let k=1;k<poly.length;k++) if(hit(poly[k])) ok=false;if(ok) return true;}}
+ return false;
+}
+function polyCent(g){if(!g) return null;const b=bboxOf(g);const sw=b.getSouthWest(),ne=b.getNorthEast();return [(sw.lng+ne.lng)/2,(sw.lat+ne.lat)/2];}
+function walkLine(g,fn){
+ const go=(coords,line)=>{if(typeof coords[0]==='number'){if(line.length) fn(line);return;}if(typeof coords[0][0]==='number') fn(coords);else coords.forEach(c=>go(c,[]));};
+ if(!g) return;if(g.type==='LineString') fn(g.coordinates);else if(g.type==='MultiLineString') g.coordinates.forEach(fn);else go(g.coordinates||g,[]);
+}
+function distToLine(lng,lat,g){
+ let best={mi:Infinity,px:lng,py:lat};
+ walkLine(g,line=>{
+  for(let i=0;i<line.length-1;i++){
+   const a=line[i],b=line[i+1];
+   const dx=b[0]-a[0],dy=b[1]-a[1],l2=dx*dx+dy*dy;
+   let t=l2?((lng-a[0])*dx+(lat-a[1])*dy)/l2:0;t=Math.max(0,Math.min(1,t));
+   const px=a[0]+t*dx,py=a[1]+t*dy,mi=hav(lng,lat,px,py);
+   if(mi<best.mi) best={mi,px,py,t,i};
+  }
+ });
+ return best;
+}
+function prepRoute(coords){
+ const seg=[];let acc=0;
+ for(let i=0;i<coords.length-1;i++){
+  const a=coords[i],b=coords[i+1],len=hav(a[0],a[1],b[0],b[1]);
+  seg.push({a,b,acc,len});acc+=len;
+ }
+ return {coords,seg,miles:acc};
+}
+function projectOnRoute(lng,lat,rt){
+ let best={mi:Infinity,along:0,px:lng,py:lat};
+ rt.seg.forEach(s=>{
+  const dx=s.b[0]-s.a[0],dy=s.b[1]-s.a[1],l2=dx*dx+dy*dy;
+  let t=l2?((lng-s.a[0])*dx+(lat-s.a[1])*dy)/l2:0;t=Math.max(0,Math.min(1,t));
+  const px=s.a[0]+t*dx,py=s.a[1]+t*dy,mi=hav(lng,lat,px,py);
+  if(mi<best.mi) best={mi,along:s.acc+t*s.len,px,py};
+ });
+ return best;
+}
+function sheetOpen(){return $('sheet').classList.contains('open');}
+function openSheet(tab){
+ $('sheet').classList.add('open');document.body.classList.add('sheet-open');
+ $('sheet').classList.toggle('noleft',!panel.classList.contains('open')||!wide);
+ DISC.tab=tab||DISC.tab;
+ $('tabNear').classList.toggle('on',DISC.tab==='near');
+ $('tabTrip').classList.toggle('on',DISC.tab==='trip');
+ $('nearPane').hidden=DISC.tab!=='near';
+ $('tripPane').hidden=DISC.tab!=='trip';
+ if(DISC.tab==='near'&&DISC.origin) listNear();
+}
+function closeSheet(){
+ $('sheet').classList.remove('open');document.body.classList.remove('sheet-open');
+ DISC.picking=null;DISC.holdHash=false;clearRouteDraw();
+ if(/^#r=/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search);
+ map.getCanvas().style.cursor='';
+}
+function setStatus(id,msg,warn){const el=$(id);el.textContent=msg||'';el.className='status'+(warn?' warn':'');}
+function renderChips(el,state){
+ el.innerHTML=LAYS.filter(l=>{
+  if(l.needPep&&!pepUnlocked) return false;
+  if(l.needFlock&&!($('tglFlock')&&$('tglFlock').checked)) return false;
+  return true;
+ }).map(l=>`<button type="button" data-lay="${l.id}" class="${state[l.id]?'on':''}"><i style="background:${l.color}"></i>${esc(l.label)}</button>`).join('');
+}
+function activeLays(){const o={};LAYS.forEach(l=>{
+  if(l.needPep&&!pepUnlocked) return;
+  if(l.needFlock&&!($('tglFlock')&&$('tglFlock').checked)) return;
+  if(DISC.chips[l.id]) o[l.id]=true;
+ });return o;}
+function ensureData(cb){
+ const need=activeLays();
+ const jobs=[];
+ const wrap=(loader,ms)=>{jobs.push(done=>{let d=false;const once=()=>{if(d)return;d=true;done();};try{loader(once);}catch(e){once();}setTimeout(once,ms||9000);});};
+ if(need.town) wrap(fn=>whenTowns(fn));
+ if(need.hist) wrap(fn=>HIST.nrhp?HIST.nrhp.load(fn):fn());
+ if(need.park||need.byway) wrap(fn=>PARK.data?PARK.data.load(fn):fn());
+ if(need.aml) wrap(fn=>loadAml(fn));
+ if(need.og) wrap(fn=>GEO.og?GEO.og.load(fn):fn());
+ if(need.mrds) wrap(fn=>GEO.mrds?GEO.mrds.load(fn):fn());
+ if(!jobs.length) return cb();
+ let n=jobs.length;jobs.forEach(j=>j(()=>{if(--n<=0) cb();}));
+}
+function layerOf(it){return LAYS.find(l=>l.id===it.lay)||LAYS[0];}
+function gatherPts(){
+ const on=activeLays(),out=[];
+ const add=(lay,id,name,sub,lng,lat,open,line)=>{
+  if(lng==null||lat==null||isNaN(lng)||isNaN(lat)) return;
+  out.push({lay,id,name,sub:sub||'',lng,lat,open,line});
+ };
+ if(on.dis) FEATS.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('dis',p.id,p.name,(p.town||'')+(p.county?(p.town?' · ':'')+p.county+' County':''),c[0],c[1],()=>openDisaster(p.id,true));});
+ if(on.town&&townsReady) TOWNS.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('town',p.id,p.name,(p.status||'')+(p.county?' · '+p.county+' County':''),c[0],c[1],()=>openTown(p.id,true));});
+ if(on.quirk) QF.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('quirk',p.id,p.name,(p.layer==='cryptid'?'Cryptid / legend':'Unusual place')+' · '+p.county+' County',c[0],c[1],()=>openQuirk(p.id,true));});
+ if(on.hist){
+  HL.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('hist',p.id,p.n,histSub(p),c[0],c[1],()=>openHist(p.id,true));});
+  NR.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('hist',p.id,p.n,histSub(p),c[0],c[1],()=>openHist(p.id,true));});
+ }
+ if(on.park) PL.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('park',p.id,p.n,parkSub(p),c[0],c[1],()=>openPark(p.id,true));});
+ if(on.byway) BW.forEach(f=>{const p=f.properties,mid=p.mid||parkPt(f);add('byway',p.id,p.n,parkSub(p),mid[0],mid[1],()=>openPark(p.id,true),f.geometry);});
+ if(on.pep&&pepUnlocked) PEP.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('pep',p.id,p.name,(p.town||'')+(p.county?' · '+p.county+' County':''),c[0],c[1],()=>openPep(p.id,true));});
+ if(on.mrds&&GEO.mrds&&GEO.mrds.loaded) GEO.mrds.data.features.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('mrds',p.id,p.name,(p.commodity||'Mineral')+(p.county?' · '+p.county+' County':''),c[0],c[1],()=>openMrds(p.id,true));});
+ if(on.og&&GEO.og&&GEO.og.loaded) GEO.og.data.features.forEach(f=>{const p=f.properties,c=polyCent(f.geometry);if(!c) return;add('og',String(p.gid),p.name,(p.type||'Field')+' field'+(p.play?' · '+p.play:''),c[0],c[1],()=>openOg(p.gid,true));});
+ if(on.aml&&AML.loaded&&AML.data) AML.data.pts.forEach((p,i)=>{const typ=(AML.data.types&&AML.data.types[p[2]])||'Abandoned mine site';const nm=(AML.data.names&&AML.data.names[p[3]])||typ;add('aml',String(i),nm,typ,p[0],p[1],()=>openAml(i,true));});
+ if(on.flock&&D.flock) D.flock.features.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;add('flock',String(p.osm_id), (p.manufacturer||'ALPR camera')+(p.operator?' · '+p.operator:''),'License plate reader',c[0],c[1],()=>showFlock(p,c));});
+ return out;
+}
+function openItem(it){
+ DISC.holdHash=!!(DISC.tab==='trip'&&DISC.route);
+ if(!wide) $('sheet').classList.add('min');
+ it.open();
+}
+function drawHits(hits,focus){
+ if(!map.getSource('disc')) return;
+ const fc={type:'FeatureCollection',features:hits.slice(0,400).map(it=>({type:'Feature',geometry:{type:'Point',coordinates:[it.lng,it.lat]},properties:{id:String(it.id),lay:it.lay,name:it.name,color:layerOf(it).color}}))};
+ map.getSource('disc').setData(fc);
+ if(focus&&hits.length){
+  const b=new maplibregl.LngLatBounds();
+  if(focus.lng) b.extend([focus.lng,focus.lat]);
+  hits.slice(0,60).forEach(it=>b.extend([it.lng,it.lat]));
+  if(DISC.route) DISC.route.coords.forEach(c=>b.extend(c));
+  map.fitBounds(b,{padding:wide?{top:80,bottom:280,left:380,right:40}:{top:60,bottom:320,left:20,right:20},maxZoom:11,essential:true});
+ }
+}
+function clearRouteDraw(){
+ if(map.getSource('disc-route')) map.getSource('disc-route').setData({type:'FeatureCollection',features:[]});
+ if(map.getSource('disc')) map.getSource('disc').setData({type:'FeatureCollection',features:[]});
+ if(map.getSource('disc-ends')) map.getSource('disc-ends').setData({type:'FeatureCollection',features:[]});
+ DISC.route=null;DISC.straight=false;
+}
+function listNear(){
+ if(!DISC.origin){ $('dlist').innerHTML='';return; }
+ const o=DISC.origin;
+ ensureData(()=>{
+  const pts=gatherPts();
+  const hits=[];
+  pts.forEach(it=>{
+   let mi;
+   if(it.line){const d=distToLine(o.lng,o.lat,it.line);mi=d.mi;}
+   else mi=hav(o.lng,o.lat,it.lng,it.lat);
+   if(mi<=DISC.rad) hits.push(Object.assign({},it,{mi}));
+  });
+  hits.sort((a,b)=>a.mi-b.mi);
+  DISC.nearHits=hits;
+  const n=hits.length;
+  const where=o.label||'this spot';
+  setStatus('nearStatus', n?`${n} place${n===1?'':'s'} within ${DISC.rad} miles of ${where}.`:`No mapped places within ${DISC.rad} miles of ${where}. Try a wider radius, or turn on more layer chips.`);
+  $('dlist').innerHTML=hits.slice(0,200).map((it,i)=>`<li tabindex="0" data-i="${i}"><span class="dot" style="background:${layerOf(it).color}"></span><div><b>${esc(it.name)}</b><small>${fmtMi(it.mi)} · ${esc(layerOf(it).label)}${it.sub?' · '+esc(it.sub):''}</small></div></li>`).join('')||'';
+  drawHits(hits,o);
+ });
+}
+function locateUser(kind){
+ if(!navigator.geolocation){setStatus(kind==='near'?'nearStatus':'tripStatus','This browser cannot share a location. Search for a town or tap the map.',true);return;}
+ const dest=kind==='near'?'nearStatus':'tripStatus';
+ setStatus(dest,'Getting your location…');
+ navigator.geolocation.getCurrentPosition(pos=>{
+  const lat=pos.coords.latitude,lng=pos.coords.longitude;
+  // Location is never stored and is not sent to us. It is only used in this page.
+  applyLoc(kind,{lng,lat,label:'My location'},true);
+ },err=>{
+  const denied=err&&err.code===1;
+  setStatus(dest,denied?'Location was denied. Search for a town or tap the map instead.':'Could not get your location. Search for a town or tap the map instead.',true);
+ },{enableHighAccuracy:false,timeout:12000,maximumAge:0});
+}
+function applyLoc(kind,pt,fromGeo){
+ if(fromGeo&&!inWV(pt.lng,pt.lat)){
+  if(kind==='near'){
+   DISC.origin=null;
+   setStatus('nearStatus','You look to be outside the West Virginia map. Search for a town or tap the map to look around a place in the state.',true);
+   $('dlist').innerHTML='';
+   return;
+  }
+  // For a trip, allow a start/end just outside the state (e.g. a border town), but warn.
+  setStatus('tripStatus','⚠ That point is outside West Virginia. You can still route; only quirks on this map (in WV) will be listed.',true);
+ }
+ if(kind==='near'||kind==='origin'){DISC.origin=pt;openSheet('near');listNear();}
+ if(kind==='start'){DISC.start=pt;$('tripStart').value=pt.label||`${pt.lat.toFixed(4)}, ${pt.lng.toFixed(4)}`;}
+ if(kind==='end'){DISC.end=pt;$('tripEnd').value=pt.label||`${pt.lat.toFixed(4)}, ${pt.lng.toFixed(4)}`;}
+ if((kind==='start'||kind==='end')&&DISC.start&&DISC.end) {/* ready */}
+}
+function startPick(kind){
+ DISC.picking=kind;
+ toast(kind==='near'||kind==='origin'?'Tap the map to choose a place to look around.':kind==='start'?'Tap the map to set your start.':'Tap the map to set your end.');
+ if(!wide) panel.classList.remove('open');
+ map.getCanvas().style.cursor='crosshair';
+}
+function finishPick(lngLat){
+ const kind=DISC.picking;if(!kind) return false;
+ DISC.picking=null;map.getCanvas().style.cursor='';
+ const pt={lng:lngLat.lng,lat:lngLat.lat,label:'Pinned on the map'};
+ applyLoc(kind,pt,false);
+ if(kind==='near'||kind==='origin') openSheet('near'); else openSheet('trip');
+ setTimeout(()=>{if(kind==='near'||kind==='origin'){/* keep any card closed */}
+  // If a pin click also opened a card, close it — the tap was meant to pick a point.
+  if(card.style.display==='block'&&(kind==='start'||kind==='end'||kind==='near')){
+   /* leave cards if they tapped a named pin? use the pin name when possible later */
+  }
+ },0);
+ return true;
+}
+function localPlaceSearch(term){
+ const t=norm(term).trim();if(t.length<2) return [];
+ const words=t.split(/\s+/);
+ const cand=[];
+ const push=(name,sub,lng,lat,label)=>{
+  const hay=norm(name+' '+sub);
+  if(!words.every(w=>hay.includes(w))) return;
+  let sc=0;if(norm(name).startsWith(t)) sc+=3;if(norm(name).includes(t)) sc+=2;
+  cand.push({name,sub,lng,lat,label:label||name,sc});
+ };
+ // built-in towns of interest + our layers
+ ;['Charleston','Huntington','Morgantown','Wheeling','Parkersburg','Fairmont','Martinsburg','Beckley','Clarksburg','Lewisburg','Elkins','Point Pleasant','Harpers Ferry','Fayetteville','Princeton','Bluefield','Weirton','Bridgeport','Summersville','Buckhannon'].forEach(n=>{});
+ if(townsReady) TOWNS.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;push(p.name,(p.county||'')+' County',c[0],c[1],p.name);});
+ QF.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;push(p.name,p.county+' County',c[0],c[1]);});
+ PL.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;push(p.n,parkSub(p),c[0],c[1]);});
+ HL.forEach(f=>{const p=f.properties,c=f.geometry.coordinates;push(p.n,histSub(p),c[0],c[1]);});
+ // a few well-known cities with fixed coords so trip search works even before towns load
+ const CITIES={'charleston':[-81.6326,38.3498],'harpers ferry':[-77.7390,39.3254],'point pleasant':[-82.1371,38.8445],'morgantown':[-79.9559,39.6295],'huntington':[-82.4452,38.4192],'wheeling':[-80.7206,40.0640],'beckley':[-81.2145,37.7782],'fairmont':[-80.1423,39.4851],'elkins':[-79.8470,38.9259],'lewisburg':[-80.4456,37.8018],'fayetteville':[-81.1040,38.0532],'blackwater falls':[-79.4816,39.1137],'seneca rocks':[-79.3765,38.8313],'new river gorge':[-81.0755,38.0700],'parkersburg':[-81.5615,39.2667],'martinsburg':[-77.9636,39.4562],'clarksburg':[-80.3445,39.2806]};
+ const key=t;
+ if(CITIES[key]){const c=CITIES[key];push(term.replace(/\b\w/g,ch=>ch.toUpperCase()),'West Virginia',c[0],c[1]);}
+ Object.keys(CITIES).forEach(k=>{if(k.includes(key)||key.includes(k)){const c=CITIES[k];const nm=k.replace(/\b\w/g,ch=>ch.toUpperCase());push(nm,'West Virginia',c[0],c[1]);}});
+ cand.sort((a,b)=>b.sc-a.sc);
+ const seen=new Set();const out=[];
+ for(const x of cand){const k=x.name.toLowerCase();if(seen.has(k)) continue;seen.add(k);out.push(x);if(out.length>=8) break;}
+ return out;
+}
+function renderSugg(listId,items,kind){
+ const el=$(listId);if(!items.length){el.hidden=true;el.innerHTML='';return;}
+ el.hidden=false;
+ el.innerHTML=items.map((p,i)=>`<li tabindex="0" data-i="${i}"><div><b>${esc(p.name)}</b><small>${esc(p.sub||'West Virginia')}</small></div></li>`).join('');
+ el._items=items;el._kind=kind;
+}
+async function nominatimPlace(term){
+ const wait=1100-(Date.now()-lastNom);if(wait>0) await new Promise(r=>setTimeout(r,wait));
+ lastNom=Date.now();
+ const u='https://nominatim.openstreetmap.org/search?'+new URLSearchParams({q:term,format:'jsonv2',limit:'6',countrycodes:'us',viewbox:'-82.65,40.64,-77.72,37.20',bounded:'1','accept-language':'en'});
+ const r=await fetch(u,{headers:{Accept:'application/json'}});const js=r.ok?await r.json():[];
+ return js.filter(p=>/West Virginia/.test(p.display_name)).map(p=>({name:p.name||p.display_name.split(',')[0],sub:p.display_name.replace(/^[^,]+,\s*/,''),lng:+p.lon,lat:+p.lat,label:p.name||p.display_name.split(',')[0]}));
+}
+function bindSugg(listId){
+ $(listId).addEventListener('click',e=>{
+  const li=e.target.closest('li');if(!li) return;
+  const items=$(listId)._items,kind=$(listId)._kind,p=items[+li.dataset.i];if(!p) return;
+  $(listId).hidden=true;
+  applyLoc(kind,{lng:p.lng,lat:p.lat,label:p.label||p.name},false);
+ });
+}
+function tripHash(){
+ if(!DISC.start||!DISC.end) return '';
+ const s=DISC.start,e=DISC.end;
+ const sl=encodeURIComponent(s.label||''),el=encodeURIComponent(e.label||'');
+ let h=`#r=${s.lng.toFixed(5)},${s.lat.toFixed(5)},${e.lng.toFixed(5)},${e.lat.toFixed(5)},${DISC.cor}`;
+ if(sl||el) h+=`/${sl}/${el}`;
+ return h;
+}
+function writeTripHash(){
+ const h=tripHash();if(!h) return;
+ if(location.hash!==h) history.replaceState(null,'',location.pathname+location.search+h);
+ DISC.holdHash=true;
+}
+function parseTripHash(){
+ if(!/^#r=/.test(location.hash)) return null;
+ const raw=location.hash.slice(3);
+ const [nums,...labels]=raw.split('/');
+ const p=nums.split(',').map(Number);
+ if(p.length<4||[p[0],p[1],p[2],p[3]].some(isNaN)) return null;
+ const cor=[2,5,10].includes(p[4])?p[4]:5;
+ return {start:{lng:p[0],lat:p[1],label:decodeURIComponent(labels[0]||'')||'Start'},end:{lng:p[2],lat:p[3],label:decodeURIComponent(labels[1]||'')||'End'},cor};
+}
+async function fetchRoute(start,end){
+ const key=[start.lng.toFixed(4),start.lat.toFixed(4),end.lng.toFixed(4),end.lat.toFixed(4)].join(',');
+ if(DISC.cache.has(key)) return DISC.cache.get(key);
+ const wait=1100-(Date.now()-DISC.lastRouteAt);if(wait>0) await new Promise(r=>setTimeout(r,wait));
+ DISC.lastRouteAt=Date.now();
+ const path=`/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson&alternatives=false&steps=false&generate_hints=false`;
+ const tryUrl=async url=>{
+  const r=await fetch(url+path,{headers:{Accept:'application/json'}});
+  if(!r.ok) throw new Error('http '+r.status);
+  const js=await r.json();
+  if(js.code!=='Ok'||!js.routes||!js.routes[0]) throw new Error(js.code||'no route');
+  const rt=js.routes[0];
+  return {coords:rt.geometry.coordinates,distance:rt.distance,duration:rt.duration,straight:false};
+ };
+ try{
+  const got=await tryUrl(OSRM_URL);
+  DISC.cache.set(key,got);return got;
+ }catch(e1){
+  try{
+   const got=await tryUrl(OSRM_FB);
+   DISC.cache.set(key,got);return got;
+  }catch(e2){
+   const coords=[[start.lng,start.lat],[end.lng,end.lat]];
+   const distance=hav(start.lng,start.lat,end.lng,end.lat)*1609.344;
+   return {coords,distance,duration:null,straight:true,error:e1&&e1.message};
+  }
+ }
+}
+function listTrip(){
+ if(!DISC.route){ $('tlist').innerHTML='';return; }
+ ensureData(()=>{
+  const rt=DISC.route,cor=DISC.cor,pts=gatherPts(),hits=[];
+  pts.forEach(it=>{
+   let proj,lng=it.lng,lat=it.lat;
+   if(it.line){
+    // Use the closest point of the byway to the route (approx: sample mid + dist of mid)
+    proj=projectOnRoute(lng,lat,rt);
+    // also try a tighter estimate via mid only; sufficient for a corridor test
+   }else proj=projectOnRoute(lng,lat,rt);
+   if(proj.mi<=cor) hits.push(Object.assign({},it,{off:proj.mi,along:proj.along,detour:proj.mi*2}));
+  });
+  hits.sort((a,b)=>a.along-b.along||a.off-b.off);
+  DISC.tripHits=hits;
+  const n=hits.length;
+  const miles=rt.miles,eta=DISC.routeMeta&&DISC.routeMeta.duration;
+  let head=`${fmtMi(miles)}`+(eta!=null?` · about ${fmtMin(eta)}`:'')+` · ${n} stop${n===1?'':'s'} within ${cor} miles of the ${DISC.straight?'straight line':'drive'}.`;
+  if(DISC.straight) setStatus('tripStatus','⚠ Could not get a driving route, so this is a straight-line corridor. '+head,true);
+  else setStatus('tripStatus',head);
+  const notable=it=>it.lay==='quirk'||it.lay==='park'||it.lay==='pep'||(it.lay==='hist'&&/Landmark|Park|Battlefield|Civil War/i.test(it.sub||''))||it.lay==='byway';
+  let checked=0;
+  $('tlist').innerHTML=hits.slice(0,250).map((it,i)=>{
+   const want=notable(it)&&checked<8;if(want) checked++;
+   return `<li tabindex="0" data-i="${i}"><span class="dot" style="background:${layerOf(it).color}"></span><div><b>${esc(it.name)}</b><small>At ${fmtMi(it.along)} · ${fmtMi(it.off)} off the road (${fmtMi(it.detour)} detour) · ${esc(layerOf(it).label)}</small></div><label class="wp" onclick="event.stopPropagation()"><input type="checkbox" class="wpbox" ${want?'checked':''}> Stop</label></li>`;
+  }).join('')||'<li style="cursor:default;border:0">No mapped places in this corridor. Try a wider corridor or more layer chips.</li>';
+  drawHits(hits);
+  writeTripHash();
+ });
+}
+async function runTrip(fromHash){
+ if(!DISC.start||!DISC.end){setStatus('tripStatus','Pick a start and an end — search, use your location, or tap the map.',true);return;}
+ if(hav(DISC.start.lng,DISC.start.lat,DISC.end.lng,DISC.end.lat)<0.05){setStatus('tripStatus','Start and end are too close together.',true);return;}
+ setStatus('tripStatus','Finding a driving route…');
+ const raw=await fetchRoute(DISC.start,DISC.end);
+ DISC.straight=!!raw.straight;
+ DISC.route=prepRoute(raw.coords);
+ DISC.routeMeta={distance:raw.distance,duration:raw.duration};
+ if(map.getSource('disc-route')){
+  map.getSource('disc-route').setData({type:'FeatureCollection',features:[{type:'Feature',geometry:{type:'LineString',coordinates:raw.coords},properties:{straight:DISC.straight}}]});
+ }
+ if(map.getSource('disc-ends')){
+  map.getSource('disc-ends').setData({type:'FeatureCollection',features:[
+   {type:'Feature',geometry:{type:'Point',coordinates:[DISC.start.lng,DISC.start.lat]},properties:{k:'start',name:DISC.start.label||'Start'}},
+   {type:'Feature',geometry:{type:'Point',coordinates:[DISC.end.lng,DISC.end.lat]},properties:{k:'end',name:DISC.end.label||'End'}}
+  ]});
+ }
+ listTrip();
+}
+function gmapsUrl(){
+ if(!DISC.start||!DISC.end) return '';
+ const boxes=[...document.querySelectorAll('#tlist .wpbox:checked')];
+ const wps=[];
+ boxes.forEach(b=>{
+  const li=b.closest('li');const it=DISC.tripHits[+li.dataset.i];if(it) wps.push(`${it.lat},${it.lng}`);
+ });
+ const o=`${DISC.start.lat},${DISC.start.lng}`,d=`${DISC.end.lat},${DISC.end.lng}`;
+ let u=`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(o)}&destination=${encodeURIComponent(d)}&travelmode=driving`;
+ if(wps.length) u+=`&waypoints=${encodeURIComponent(wps.slice(0,9).join('|'))}`;
+ return u;
+}
+function initDiscover(){
+ map.addSource('disc-route',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+ map.addLayer({id:'disc-route-cas',type:'line',source:'disc-route',paint:{'line-color':'#fff','line-width':8,'line-opacity':.9}});
+ map.addLayer({id:'disc-route',type:'line',source:'disc-route',paint:{'line-color':'#6a1b9a','line-width':4,'line-opacity':.95}});
+ map.addSource('disc-ends',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+ map.addLayer({id:'disc-ends',type:'circle',source:'disc-ends',paint:{'circle-color':['match',['get','k'],'start','#2e7d32','#c62828'],'circle-radius':8,'circle-stroke-color':'#fff','circle-stroke-width':2}});
+ map.addLayer({id:'disc-end-lbl',type:'symbol',source:'disc-ends',layout:{'text-field':['get','name'],'text-size':12,'text-offset':[0,1.1],'text-anchor':'top','text-font':['Noto Sans Bold']},paint:{'text-color':'#4a148c','text-halo-color':'#fff','text-halo-width':1.5}});
+ map.addSource('disc',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+ map.addLayer({id:'disc-pt',type:'circle',source:'disc',paint:{'circle-color':['get','color'],'circle-radius':6,'circle-stroke-color':'#fff','circle-stroke-width':1.5,'circle-opacity':.92}});
+ ['disc-pt','disc-ends','disc-route'].forEach(l=>{
+  map.on('mouseenter',l,()=>map.getCanvas().style.cursor='pointer');
+  map.on('mouseleave',l,()=>{if(!DISC.picking) map.getCanvas().style.cursor='';});
+ });
+ map.on('click','disc-pt',e=>{
+  if(DISC.picking) return;
+  const id=e.features[0].properties.id;
+  const it=(DISC.tab==='trip'?DISC.tripHits:DISC.nearHits).find(x=>String(x.id)===String(id));
+  if(it) openItem(it);
+ });
+ map.on('click',e=>{
+  if(DISC.picking) finishPick(e.lngLat);
+ });
+ $('nearBtn').onclick=()=>{openSheet('near');renderChips($('nearChips'),DISC.chips);};
+ $('tripBtn').onclick=()=>{openSheet('trip');renderChips($('tripChips'),DISC.chips);};
+ $('tabNear').onclick=()=>{openSheet('near');renderChips($('nearChips'),DISC.chips);};
+ $('tabTrip').onclick=()=>{openSheet('trip');renderChips($('tripChips'),DISC.chips);};
+ $('sheetX').onclick=()=>closeSheet();
+ $('useLoc').onclick=()=>locateUser('near');
+ $('startMe').onclick=()=>locateUser('start');
+ $('endMe').onclick=()=>locateUser('end');
+ $('pickHere').onclick=()=>startPick('near');
+ $('startPick').onclick=()=>startPick('start');
+ $('endPick').onclick=()=>startPick('end');
+ $('nearRad').onclick=e=>{const b=e.target.closest('button[data-mi]');if(!b) return;DISC.rad=+b.dataset.mi;[...$('nearRad').querySelectorAll('button[data-mi]')].forEach(x=>x.classList.toggle('on',x===b));if(DISC.origin) listNear();};
+ $('tripCor').onclick=e=>{const b=e.target.closest('button[data-mi]');if(!b) return;DISC.cor=+b.dataset.mi;[...$('tripCor').querySelectorAll('button[data-mi]')].forEach(x=>x.classList.toggle('on',x===b));if(DISC.route) listTrip();};
+ const onChip=e=>{const b=e.target.closest('button[data-lay]');if(!b) return;DISC.chips[b.dataset.lay]=!DISC.chips[b.dataset.lay];b.classList.toggle('on',!!DISC.chips[b.dataset.lay]);if(DISC.tab==='near'&&DISC.origin) listNear();if(DISC.tab==='trip'&&DISC.route) listTrip();};
+ $('nearChips').onclick=onChip;$('tripChips').onclick=onChip;
+ $('dlist').onclick=e=>{const li=e.target.closest('li[data-i]');if(!li) return;const it=DISC.nearHits[+li.dataset.i];if(it) openItem(it);};
+ $('tlist').onclick=e=>{if(e.target.closest('.wp')) return;const li=e.target.closest('li[data-i]');if(!li) return;const it=DISC.tripHits[+li.dataset.i];if(it) openItem(it);};
+ $('dlist').addEventListener('keydown',e=>{if(e.key==='Enter') e.target.click();});
+ $('tlist').addEventListener('keydown',e=>{if(e.key==='Enter') e.target.click();});
+ $('tripGo').onclick=()=>runTrip(false);
+ $('tripShare').onclick=shareBtn(tripHash()||'#','Road trip','A Quirk Atlas road trip');
+ // shareBtn closes over hash at bind time — wrap so the hash is current
+ $('tripShare').onclick=()=>{const h=tripHash();if(!h){toast('Find a trip first.');return;}shareBtn(h,'Road trip','A Quirk Atlas road trip')();};
+ $('tripGmaps').onclick=()=>{const u=gmapsUrl();if(!u){toast('Find a trip first.');return;}window.open(u,'_blank','noopener');};
+ const typeSearch=(input,listId,kind)=>{
+  input.addEventListener('input',()=>{const t=input.value;renderSugg(listId,localPlaceSearch(t),kind);});
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const t=input.value.trim();if(t.length<2) return;
+   const loc=localPlaceSearch(t)[0];
+   if(loc){$(listId).hidden=true;applyLoc(kind,{lng:loc.lng,lat:loc.lat,label:loc.label||loc.name},false);return;}
+   nominatimPlace(t).then(ps=>{if(ps[0]){applyLoc(kind,{lng:ps[0].lng,lat:ps[0].lat,label:ps[0].name},false);$(listId).hidden=true;}else toast('No West Virginia place found.');}).catch(()=>toast('Place search is unavailable right now.'));
+  }});
+ };
+ typeSearch($('nearQ'),'nsugg','near');
+ typeSearch($('tripStart'),'tsugg','start');
+ typeSearch($('tripEnd'),'esugg','end');
+ bindSugg('nsugg');bindSugg('tsugg');bindSugg('esugg');
+ renderChips($('nearChips'),DISC.chips);
+ renderChips($('tripChips'),DISC.chips);
+ panel.addEventListener('transitionend',()=>{if(sheetOpen()) $('sheet').classList.toggle('noleft',!panel.classList.contains('open')||!wide);});
+ window.__discover=DISC;
+}
+function openTripFromHash(){
+ const p=parseTripHash();if(!p) return;
+ DISC.start=p.start;DISC.end=p.end;DISC.cor=p.cor;
+ $('tripStart').value=p.start.label||'';$('tripEnd').value=p.end.label||'';
+ [...$('tripCor').querySelectorAll('button[data-mi]')].forEach(x=>x.classList.toggle('on',+x.dataset.mi===p.cor));
+ openSheet('trip');renderChips($('tripChips'),DISC.chips);runTrip(true);
+}
+
 })();
 
 </script>

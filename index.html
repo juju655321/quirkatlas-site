@@ -8,6 +8,9 @@
 <meta property="og:title" content="Quirk Atlas: West Virginia">
 <meta property="og:description" content="Discover West Virginia’s wonderfully strange side. A map of cryptids, ghost towns, battlefields, parks and other odd corners, starting with the Mountain State. A Jupiter Rockets beta.">
 <meta property="og:site_name" content="Quirk Atlas">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:url" content="https://quirkatlas.com/">
 <link rel="canonical" href="https://quirkatlas.com/">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
@@ -26,7 +29,7 @@ h1,h2,h3,.wordmark,#panel h1,#brandBtn,#welcomeTitle,#aboutTitle,#tmYear{
 }
 #map{position:absolute;inset:0}
 #menuBtn{position:absolute;top:12px;left:12px;z-index:6;background:#fff;border:1px solid #ccd;border-radius:8px;padding:8px 12px;font-size:15px;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.15);cursor:pointer}
-#brandBtn{position:absolute;top:12px;left:118px;z-index:6;background:#fff;border:1px solid #ccd;border-radius:8px;padding:7px 12px 6px;font-size:18px;line-height:1.1;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.15);cursor:pointer}
+#brandBtn{position:absolute;top:12px;left:118px;z-index:6;background:#fff;border:1px solid #ccd;border-radius:8px;padding:5px 10px;line-height:0;box-shadow:0 2px 6px rgba(0,0,0,.15);cursor:pointer}#brandBtn img{height:26px;width:auto;display:block}
 #brandBtn:hover,#brandBtn:focus,#menuBtn:hover,#menuBtn:focus,#exploreBtn:hover,#exploreBtn:focus{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
 #exploreBtn{position:absolute;top:54px;left:12px;z-index:6;background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer}
 #exploreBtn[hidden]{display:none}
@@ -37,8 +40,9 @@ body.panel-open #brandBtn{visibility:hidden}
  #exploreBtn{left:auto;right:58px;top:12px}
 }
 
-#panel h1{font-size:22px;margin:0 0 2px;letter-spacing:-0.02em}
-#panel h1 .st{font-weight:600;color:#3c4650;font-size:16px}
+#panel h1{font-size:22px;margin:0 0 2px;letter-spacing:-0.02em;padding-right:28px}
+#panel h1 .panel-wordmark{height:30px;width:auto;display:block;margin:2px 0 4px}
+#panel h1 .st{display:block;font-weight:600;color:#3c4650;font-size:15px;margin:0}
 #panel .by{font-size:11px;color:#7a838d;margin:0 0 6px}
 #panel .by a{color:#7a838d}
 #panel .lede{font-size:13px;color:#5a6470;margin:0 0 8px;line-height:1.4}
@@ -243,7 +247,7 @@ body.tm-on:not(.sheet-open) #discoverBtns{bottom:var(--tm-h,168px)}
 .welcome-backdrop,.about-backdrop{position:absolute;inset:0;background:rgba(18,14,12,.45)}
 .welcome-sheet,.about-sheet{position:relative;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#fffaf6;border-radius:20px 20px 0 0;box-shadow:0 -8px 32px rgba(0,0,0,.28);padding:18px 18px max(20px,env(safe-area-inset-bottom));color:var(--ink)}
 .welcome-x,.about-x{position:absolute;right:10px;top:8px;border:0;background:none;font-size:26px;cursor:pointer;line-height:1;color:var(--muted)}
-.welcome-brand{font-family:var(--font-display);font-weight:650;font-size:15px;color:var(--accent);margin:0 28px 4px 0;letter-spacing:.02em}
+.welcome-brand,.about-brand{margin:0 28px 8px 0}.welcome-brand img,.about-brand img{height:32px;width:auto;display:block}
 #welcomeTitle,#aboutTitle{font-size:28px;line-height:1.15;margin:0 28px 8px 0;letter-spacing:-0.03em}
 .welcome-sub{font-size:16px;line-height:1.45;color:#3c4650;margin:0 0 14px}
 .start-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
@@ -282,7 +286,7 @@ body.tm-on:not(.sheet-open) #discoverBtns{bottom:var(--tm-h,168px)}
 <body>
 <div id="map"></div>
 <button id="menuBtn" aria-controls="panel">☰ Layers</button>
-<button type="button" id="brandBtn" class="wordmark" aria-label="Open Start exploring">Quirk Atlas</button>
+<button type="button" id="brandBtn" aria-label="Open Start exploring"><img src="brand/wordmark.png" alt="Quirk Atlas" width="119" height="26"></button>
 <button type="button" id="exploreBtn" hidden>Start exploring</button>
 <div id="discoverBtns">
 <button type="button" id="timeBtn" aria-controls="tmBar" aria-pressed="false">⏳ Time Machine</button>
@@ -312,7 +316,7 @@ body.tm-on:not(.sheet-open) #discoverBtns{bottom:var(--tm-h,168px)}
 </div>
 <aside id="panel" aria-label="Map layers">
  <button id="closeBtn" aria-label="Close menu">×</button>
- <h1>Quirk Atlas<span class="st">: West Virginia</span></h1>
+ <h1><img src="brand/wordmark.png" alt="Quirk Atlas" class="panel-wordmark" width="137" height="30"><span class="st">West Virginia</span></h1>
  <p class="by">by <a href="https://www.jupiterrockets.com/" target="_top">Jupiter Rockets</a></p>
  <p class="lede">Discover West Virginia’s wonderfully strange side. Pick what to show, or use Near Me, Road trip and the Time Machine.</p>
  <p class="panel-links"><button type="button" id="panelExplore">Start exploring</button> · <button type="button" id="aboutLink">About / beta</button></p>
@@ -503,7 +507,7 @@ body.tm-on:not(.sheet-open) #discoverBtns{bottom:var(--tm-h,168px)}
  <div class="welcome-backdrop" id="welcomeBackdrop"></div>
  <div class="welcome-sheet" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
   <button type="button" class="welcome-x" id="welcomeX" aria-label="Close welcome">×</button>
-  <p class="welcome-brand">Quirk Atlas</p>
+  <p class="welcome-brand"><img src="brand/wordmark.png" alt="Quirk Atlas" width="146" height="32"></p>
   <h2 id="welcomeTitle">Discover West Virginia’s wonderfully strange side</h2>
   <p class="welcome-sub">A map of cryptids, ghost towns, battlefields, parks and other odd corners, starting with the Mountain State. Here are a few places to begin.</p>
   <div class="start-chips">
@@ -522,6 +526,7 @@ body.tm-on:not(.sheet-open) #discoverBtns{bottom:var(--tm-h,168px)}
  <div class="about-backdrop" id="aboutBackdrop"></div>
  <div class="about-sheet" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
   <button type="button" class="about-x" id="aboutX" aria-label="Close about">×</button>
+  <p class="about-brand"><img src="brand/wordmark.png" alt="Quirk Atlas" width="146" height="32"></p>
   <h2 id="aboutTitle">About this beta</h2>
   <p>Quirk Atlas is a work in progress from Jupiter Rockets. We’re adding layers bit by bit, starting with West Virginia.</p>
   <p>Locations can be approximate — each place card shows how precise the pin is, and names its sources. This map is not for engineering, legal or safety use.</p>

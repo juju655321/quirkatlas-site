@@ -7,4 +7,4 @@ Public static site for **Quirk Atlas: West Virginia**.
 
 This repository holds only the built site. Source lives in a private repo.
 
-by [Jupiter Rockets](https://www.jupiterrockets.com/). Privacy and support pages are in this folder. Map and data credits (OpenStreetMap ODbL, MapLibre / OpenFreeMap, WV OMHST, WVGES, WVDEP, USGS MRDS, Macrostrat CC BY) are listed on the privacy page.
+by [Jupiter Rockets](https://www.jupiterrockets.com/). Privacy and support pages are in this folder. Map and data credits (OpenStreetMap ODbL, MapLibre / OpenFreeMap, WV OMHST, WVGES, WVDEP, USGS National Hydrography Dataset) are listed on the privacy page.
